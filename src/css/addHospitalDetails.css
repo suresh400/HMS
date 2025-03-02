@@ -1,0 +1,79 @@
+.add-hospital-details {
+    width: 100%;
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .add-hospital-details h2 {
+    font-size: 28px;
+    color: #007bff;
+    margin-bottom: 20px;
+  }
+  
+  .add-hospital-details form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+  }
+  
+  .add-hospital-details input,
+  .add-hospital-details textarea {
+    width: 100%;
+    max-width: 600px;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background: white;
+    box-sizing: border-box;
+  }
+  
+  .add-hospital-details textarea {
+    resize: vertical;
+    height: 100px;
+  }
+  
+  .add-hospital-details button {
+    background: #28a745;
+    color: white;
+    font-size: 18px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  .add-hospital-details button:hover {
+    background: #218838;
+  }
+  
+  @media (max-width: 768px) {
+    .add-hospital-details {
+      width: 95%;
+      padding: 15px;
+    }
+  
+    .add-hospital-details h2 {
+      font-size: 24px;
+    }
+  
+    .add-hospital-details input,
+    .add-hospital-details textarea {
+      font-size: 14px;
+      width: 95%;
+    }
+  
+    .add-hospital-details button {
+      width: 100%;
+    }
+  }
+  

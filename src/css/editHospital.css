@@ -1,0 +1,151 @@
+/* Edit Hospital Form Container */
+.edit-hospital {
+    width: 100%;
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  /* Form Title */
+  .edit-hospital h2 {
+    font-size: 28px;
+    color: #007bff;
+    margin-bottom: 20px;
+  }
+  
+  /* Form Styling */
+  .edit-hospital form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+  }
+  
+  /* Input Fields */
+  .edit-hospital input,
+  .edit-hospital textarea,
+  .edit-hospital select {
+    width: 100%;
+    max-width: 600px;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background: white;
+    box-sizing: border-box;
+  }
+  
+  /* Textarea */
+  .edit-hospital textarea {
+    resize: vertical;
+    height: 100px;
+  }
+  
+  /* Specialities Input Section */
+  .specialities-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 600px;
+    width: 100%;
+  }
+  
+  .specialities-input input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  /* Add Speciality Button */
+  .specialities-input button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  .specialities-input button:hover {
+    background: #0056b3;
+  }
+  
+  /* Specialities List */
+  .specialities-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    max-width: 600px;
+    justify-content: center;
+  }
+  
+  .speciality {
+    background: #28a745;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .speciality:hover {
+    background: #218838;
+  }
+  
+  /* Submit Button */
+  .edit-hospital button {
+    background: #28a745;
+    color: white;
+    font-size: 18px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  .edit-hospital button:hover {
+    background: #218838;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .edit-hospital {
+      width: 95%;
+      padding: 15px;
+    }
+  
+    .edit-hospital h2 {
+      font-size: 24px;
+    }
+  
+    .edit-hospital input,
+    .edit-hospital textarea,
+    .edit-hospital select {
+      font-size: 14px;
+      width: 95%;
+    }
+  
+    .specialities-input {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .specialities-input button {
+      width: 100%;
+    }
+  
+    .edit-hospital button {
+      width: 100%;
+    }
+  }
+  
