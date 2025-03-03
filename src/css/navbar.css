@@ -1,9 +1,10 @@
 /* Navbar Container */
+
 nav {
-    background-color: #253a51; /* Blue background */
+    background-color: #2c4763; /* Blue background */
     width: 100%; /* Ensures full-width navbar */
     display: flex;
-    justify-content: center; /* Centers links horizontally */
+    justify-content: space-between; /* Spreads links evenly */
     align-items: center;
     text-align: center;
     padding: 15px 20px;
@@ -11,13 +12,27 @@ nav {
     position: fixed; /* Keeps navbar fixed at the top */
     top: 0;
     left: 0;
+    gap: 15px;
     z-index: 1000;
+    padding-left: 5%;
+    padding-right: 15%;
+  }
+  nav h1 {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    left: 0%;
+    padding-right: 75%;
   }
   
   /* Navbar Links Container */
   .nav-links {
     display: flex;
-    gap: 20px;
+    gap: 5px;
+    align-items: center;
+    
+    flex-grow: 1;
+    justify-content: center;
   }
   
   /* Navbar Links */
@@ -26,7 +41,9 @@ nav {
     text-decoration: none;
     font-size: 18px;
     font-weight: bold;
-    padding: 10px 15px;
+    width: 10%;
+    
+    padding: 15px 15px;
     border-radius: 5px;
     transition: background-color 0.3s ease;
   }
@@ -47,12 +64,12 @@ nav {
     nav {
       flex-direction: column;
       padding: 10px;
+      align-items: center;
     }
   
     .nav-links {
       flex-direction: column;
-      gap: 5px;
-      text-align: center;
+      gap: 10px;
     }
   
     nav a {

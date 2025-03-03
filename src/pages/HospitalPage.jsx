@@ -1,10 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
-import "../css/hospitalPage.css"; // Import CSS for styling
+import "../css/hospitalPage.css";
+import { AuthContext } from "../context/AuthContext";
+import Chatbot from "../components/ChatBot";
 
 const HospitalPage = () => {
   const { id } = useParams();
+  const { user } = useContext(AuthContext); // ✅ Get user from AuthContext
   const [hospital, setHospital] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -13,7 +16,11 @@ const HospitalPage = () => {
     const fetchHospitalDetails = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`http://localhost:5000/api/v1/hospitals/${id}`);
+        setError(null); // ✅ Reset error state before fetching
+
+        const response = await axios.get(`http://localhost:5000/api/v1/hospitals/${id}`, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }, // ✅ Authorization added
+        });
 
         if (!response.data || response.data.error) {
           setError("Hospital not found.");
@@ -57,13 +64,14 @@ const HospitalPage = () => {
         )}
       </div>
 
-      <div className="button-group">
-        {/* Edit Button */}
-        <Link to={`/edit-hospital/${hospital._id}`} className="edit-btn">✏️ Edit Hospital</Link>
-
-        {/* Add Hospital Details Button */}
-        <Link to={`/hospital/${hospital._id}/details`} className="add-details-btn">➕ Add Hospital Details</Link>
-      </div>
+      {/* ✅ Show Buttons ONLY if user is Admin */}
+      {user?.role === "admin" && (
+        <div className="button-group">
+          <Link to={`/edit-hospital/${hospital._id}`} className="edit-btn">✏️ Edit Hospital</Link>
+          <Link to={`/hospital/${hospital._id}/details`} className="add-details-btn">➕ Add Hospital Details</Link>
+        </div>
+      )}
+      <Chatbot hospitalId={hospital._id} />
     </div>
   );
 };

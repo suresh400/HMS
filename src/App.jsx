@@ -5,19 +5,19 @@ import AddHospital from "./pages/AddHospital";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import HospitalList from "./components/HospitalList";
-import HospitalDetails from "./components/HospitalDetails";
 import EditHospitalPage from "./pages/EditHospitalPage";
 import AddHospitalDetails from "./pages/AddHospitalDetails";
 import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";  // Import Footer
-import {AuthProvider} from "./context/AuthContext";
+import Footer from "./components/Footer";
+import { AuthProvider } from "./context/AuthContext";
 import Contact from "./pages/Contact";
+
 const App = () => {
   return (
-    <AuthProvider>
-      <Router>
+    <Router>
+      <AuthProvider> {/* ✅ AuthProvider is inside Router now */}
         <Navbar />
-        <div className="main-content">  {/* Wrapper to avoid footer overlay */}
+        <div className="main-content">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/hospital/:id" element={<HospitalPage />} />
@@ -25,15 +25,14 @@ const App = () => {
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/hospital-details/:id" element={<HospitalDetails />} />
             <Route path="/hospital-list" element={<HospitalList />} />
             <Route path="/edit-hospital/:id" element={<EditHospitalPage />} />
             <Route path="/hospital/:id/details" element={<AddHospitalDetails />} />
           </Routes>
         </div>
-        <Footer />  {/* Add Footer */}
-      </Router>
-    </AuthProvider>
+        <Footer />
+      </AuthProvider>
+    </Router>
   );
 };
 

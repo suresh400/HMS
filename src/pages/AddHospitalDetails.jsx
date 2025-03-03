@@ -17,9 +17,15 @@ const AddHospitalDetails = () => {
     fetchHospitalDetails();
   }, []);
 
+  // ✅ Fetch hospital details
   const fetchHospitalDetails = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/v1/hospitals/${id}`);
+      const response = await axios.get(
+        `http://localhost:5000/api/v1/hospitals/${id}`,
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }, // ✅ Token added
+        }
+      );
       setDetails({
         description: response.data.description || "",
         images: response.data.images || [],
@@ -28,23 +34,40 @@ const AddHospitalDetails = () => {
       });
     } catch (error) {
       console.error("Error fetching hospital details:", error);
+      alert("Failed to fetch hospital details.");
     }
   };
 
+  // ✅ Handle input changes
   const handleChange = (e) => {
-    setDetails({ ...details, [e.target.name]: e.target.value });
+    setDetails((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
   };
 
+  // ✅ Handle multiple image URLs
   const handleImageChange = (e) => {
-    setDetails({ ...details, images: e.target.value.split(",") });
+    const imagesArray = e.target.value.split(",").map((img) => img.trim()).filter(Boolean);
+    setDetails((prevState) => ({
+      ...prevState,
+      images: imagesArray,
+    }));
   };
 
+  // ✅ Submit updated hospital details
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`http://localhost:5000/api/v1/hospitals/details?id=${id}`, details);
+      await axios.post(
+        `http://localhost:5000/api/v1/hospitals/details?id=${id}`,
+        details,
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }, // ✅ Token added
+        }
+      );
       alert("Hospital details updated successfully!");
-      navigate(`/hospital/${id}`);
+      navigate(-1); // ✅ Go back to the previous page dynamically
     } catch (error) {
       console.error("Error updating hospital details:", error);
       alert("Failed to update hospital details.");
@@ -56,16 +79,36 @@ const AddHospitalDetails = () => {
       <h2>Add Hospital Details</h2>
       <form onSubmit={handleSubmit}>
         <label>Description:</label>
-        <textarea name="description" value={details.description} onChange={handleChange}></textarea>
+        <textarea
+          name="description"
+          value={details.description}
+          onChange={handleChange}
+          required
+        ></textarea>
 
         <label>Image URLs (comma-separated):</label>
-        <input type="text" name="images" value={details.images.join(",")} onChange={handleImageChange} />
+        <input
+          type="text"
+          name="images"
+          value={details.images.join(", ")}
+          onChange={handleImageChange}
+        />
 
         <label>Number of Doctors:</label>
-        <input type="number" name="numberOfDoctors" value={details.numberOfDoctors} onChange={handleChange} />
+        <input
+          type="number"
+          name="numberOfDoctors"
+          value={details.numberOfDoctors}
+          onChange={handleChange}
+        />
 
         <label>Number of Departments:</label>
-        <input type="number" name="numberOfDepartments" value={details.numberOfDepartments} onChange={handleChange} />
+        <input
+          type="number"
+          name="numberOfDepartments"
+          value={details.numberOfDepartments}
+          onChange={handleChange}
+        />
 
         <button type="submit">Update Details</button>
       </form>

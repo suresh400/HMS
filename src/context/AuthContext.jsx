@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import axios from "axios";
+import { useNavigate } from "react-router-dom"; // ✅ Import useNavigate only inside a component
 
 // Create Auth Context
 export const AuthContext = createContext();
@@ -7,37 +7,32 @@ export const AuthContext = createContext();
 // AuthProvider Component
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-
-  // Fetch User Data
+  
+  // ✅ Fetch User Data when App Loads
   useEffect(() => {
-    const fetchUser = async () => {
-      const token = localStorage.getItem("token");
-      if (token) {
-        try {
-          const response = await axios.get("http://localhost:5000/api/v1/auth/user", {
-            headers: { Authorization: token },
-          });
-          setUser(response.data);
-        } catch (error) {
-          console.error("Error fetching user:", error);
-          setUser(null);
-        }
-      }
-    };
+    const token = localStorage.getItem("token");
+    const storedUser = JSON.parse(localStorage.getItem("user"));
 
-    fetchUser();
+    if (token && storedUser) {
+      setUser(storedUser);
+    }
   }, []);
 
-  // Login function
+  // ✅ Login Function
   const login = (userData, token) => {
     localStorage.setItem("token", token);
+    localStorage.setItem("user", JSON.stringify(userData));
     setUser(userData);
   };
-
-  // Logout function
   const logout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("user"); // ✅ Clear stored user data
     setUser(null);
+
+    // ✅ Redirect after logout
+    setTimeout(() => {
+      navigate("/"); // ✅ Redirect to home page
+    }, 0);
   };
 
   return (
@@ -46,3 +41,5 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
+export default AuthProvider;

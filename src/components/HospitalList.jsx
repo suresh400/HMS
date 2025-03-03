@@ -1,47 +1,81 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import "../css/hospitalList.css";
 import axios from "axios";
+import "../css/hospitalList.css";
+import { AuthContext } from "../context/AuthContext";
+
 
 const HospitalList = () => {
+  const { user } = useContext(AuthContext); // Get user details
+  const isAdmin = user?.role === "admin"; // Check if user is an admin
   const [hospitals, setHospitals] = useState([]);
   const [cities, setCities] = useState([]);
   const [selectedCity, setSelectedCity] = useState("");
+  const [error, setError] = useState("");
 
-  // Fetch hospitals and cities when the page loads
+  // ✅ Fetch hospitals whenever `selectedCity` changes
   useEffect(() => {
     fetchHospitals();
-  }, [selectedCity]);
+  }, [selectedCity]); // ✅ Runs every time city filter changes
 
-  // Get all hospitals (filtered by city if selected)
+  // ✅ Fetch hospitals from API
   const fetchHospitals = async () => {
     try {
+      const token = localStorage.getItem("token");
+
+      // ✅ Ensure user is authenticated
+      if (!token) {
+        setError("Authentication error. Please log in.");
+        return;
+      }
+
       let url = "http://localhost:5000/api/v1/hospitals";
       if (selectedCity) url += `?city=${selectedCity}`;
 
-      const response = await axios.get(url);
-      setHospitals(response.data);
+      const response = await axios.get(url, {
+        headers: { Authorization: `Bearer ${token}` }, // ✅ Send Authorization header
+      });
 
-      // Extract unique city names from hospitals list
-      const uniqueCities = [...new Set(response.data.map((hospital) => hospital.city))];
-      setCities(uniqueCities);
+      // ✅ Check if response contains hospitals
+      if (response.data.length > 0) {
+        setHospitals(response.data);
+
+        // ✅ Extract unique cities from hospitals
+        const uniqueCities = [...new Set(response.data.map((hospital) => hospital.city))];
+        setCities(uniqueCities);
+        setError(""); // ✅ Clear error if hospitals found
+      } else {
+        setHospitals([]); // ✅ Clear hospital list if none found
+        setError(`No hospitals found${selectedCity ? ` in ${selectedCity}` : ""}.`);
+      }
     } catch (error) {
       console.error("Error fetching hospitals:", error);
+      setError("Failed to load hospitals. Please try again.");
     }
   };
 
-  // Handle hospital deletion
+  // ✅ Handle hospital deletion (Admin only)
   const handleDelete = async (id) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this hospital?");
-    if (!confirmDelete) return;
+    if (!window.confirm("Are you sure you want to delete this hospital?")) return;
 
     try {
-      await axios.delete(`http://localhost:5000/api/v1/hospitals/delete?id=${id}`);
-      setHospitals(hospitals.filter((hospital) => hospital._id !== id)); // Remove from UI
+      const token = localStorage.getItem("token");
+
+      // ✅ Ensure user is authenticated
+      if (!token) {
+        setError("Authentication error. Please log in.");
+        return;
+      }
+
+      await axios.delete(`http://localhost:5000/api/v1/hospitals/delete?id=${id}`, {
+        headers: { Authorization: `Bearer ${token}` }, // ✅ Send Authorization header
+      });
+
+      setHospitals(hospitals.filter((hospital) => hospital._id !== id)); // ✅ Remove from UI
       alert("Hospital deleted successfully!");
-      fetchHospitals(); // Refresh hospitals list
     } catch (error) {
       console.error("Error deleting hospital:", error);
+      setError("Failed to delete hospital.");
     }
   };
 
@@ -49,7 +83,7 @@ const HospitalList = () => {
     <div className="hospital-list">
       <h2>Hospitals</h2>
 
-      {/* Dropdown to filter by city */}
+      {/* ✅ Dropdown to filter by city */}
       <select onChange={(e) => setSelectedCity(e.target.value)} value={selectedCity}>
         <option value="">All Cities</option>
         {cities.map((city, index) => (
@@ -57,7 +91,10 @@ const HospitalList = () => {
         ))}
       </select>
 
-      {/* Display list of hospitals */}
+      {/* ✅ Display Error Message */}
+      {error && <p className="error-message">{error}</p>}
+
+      {/* ✅ Display list of hospitals */}
       <ul>
         {hospitals.length > 0 ? (
           hospitals.map((hospital) => (
@@ -67,11 +104,20 @@ const HospitalList = () => {
               </Link>
               <p><strong>Specialities:</strong> {hospital.specialities.join(", ")}</p>
               <p><strong>Rating:</strong> ⭐ {hospital.rating}</p>
-              <button onClick={() => handleDelete(hospital._id)}>🗑️ Delete</button>
+
+              {/* ✅ Role-based Access Control */}
+              {isAdmin ? (
+                <>
+                  <button onClick={() => handleDelete(hospital._id)} className="delete-btn">🗑️ Delete</button>
+                  <Link to={`/hospital/${hospital._id}`} className="view-btn">👁️ View</Link>
+                </>
+              ) : (
+                <Link to={`/hospital/${hospital._id}`} className="view-btn">👁️ View</Link>
+              )}
             </li>
           ))
         ) : (
-          <p>No hospitals found.</p>
+          <p>No hospitals available.</p>
         )}
       </ul>
     </div>

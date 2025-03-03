@@ -1,116 +1,144 @@
-/* Search Container */
-.search-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px; /* Space between input and button */
-    margin-bottom: 20px;
-    padding-left: 500px;
-    padding-right: 500px;
-    padding-top: 20px;
-  }
- /* Welcome Container */
+/* Welcome Section */
 .welcome-container {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
-  
-  /* Background Image */
-  .welcome-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1; /* Push image behind content */
-  }
-  
-  /* Welcome Text Overlay */
-  .welcome-container h1 {
-    font-size: 50px;
-    color: white;
-    font-weight: bold;
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7); /* Text readability */
-    margin-bottom: 10px;
-  }
-  
-  .welcome-container p {
-    font-size: 40px;
-    color: white;
-    text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.6);
-  }
-  
-  /* Links */
-  .welcome-container a {
-    color: yellow;
-    font-weight: bold;
-    text-decoration: none;
-  }
-  
-  .welcome-container a:hover {
-    text-decoration: underline;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .welcome-container h1 {
-      font-size: 28px;
-    }
-  
-    .welcome-container p {
-      font-size: 16px;
-    }
-  }
-  
-  /* Search Input */
-  .search-container input {
-    width: 90%;
-    max-width: 500px;
-    padding: 10px;
-    padding-top: 10px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    text-align: center;
-  }
-  
-  /* Search Button */
-  .search-container button {
-    padding: 10px 15px;
-    font-size: 14px;
-    background: #0a5317;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  
-  .search-container button:hover {
-    background: #66caaa;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .search-container {
-      flex-direction: column;
-      gap: 5px;
-    }
-  
-    .search-container input {
-      width: 80%;
-    }
-  
-    .search-container button {
-      width: auto;
-      padding: 8px 12px;
-      font-size: 13px;
-    }
-  }
-  
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.about-us {
+  text-align: center;
+  margin: 50px auto;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  max-width: 900px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.about-us h2 {
+  color: #007bff;
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.about-us ul {
+  list-style: none;
+  padding: 0;
+}
+
+.about-us ul li {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+.welcome-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(60%);
+}
+.welcome-message {
+  /* position: absolute; */
+  padding-top: 100px;
+}
+
+.welcome-overlay {
+  position: absolute;
+  text-align: center;
+  color: white;
+  padding: 20px;
+  max-width: 600px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+}
+
+.welcome-message {
+  text-align: center;
+  font-size: 24px;
+  color: #333;
+  margin-top: 50px;
+}
+
+/* Search Bar */
+.search-container {
+  width: 80%;
+  max-width: 500px;
+  margin: auto;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search-container input {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.search-container button {
+  padding: 12px;
+  background: #007bff;
+  color: white;
+  width: 40%;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Hospital Cards */
+.hospital-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.hospital-card {
+  width: 300px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  text-align: center;
+}
+
+.hospital-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.hospital-info {
+  padding: 15px;
+}
+
+.view-btn {
+  display: block;
+  background: #007bff;
+  color: white;
+  padding: 10px;
+  margin-top: 10px;
+  text-decoration: none;
+  border-radius: 5px;
+}
+.hospital-slider {
+  width: 80%;
+  margin: auto;
+  /* margin-top: 100px; ✅ 100px top padding */
+}
+
+.hospital-slide-image {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.view-btn:hover {
+  background: #0056b3;
+}

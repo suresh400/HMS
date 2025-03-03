@@ -1,45 +1,55 @@
-/* Footer Container */
-.footer {
-    width: 100%;
-    background-color: #738aa2;
-    color: white;
-    text-align: center;
-    padding: 15px 0;
+/* Ensure the page takes full height */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
 
-    bottom: 0;
-    left: 0;
+/* Main Wrapper to push footer down */
+.main-content {
+  flex: 1; /* Pushes footer to the bottom */
+}
+
+/* Footer Styles */
+.footer {
+  width: 100%;
+  background-color: #738aa2; /* Background color */
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+  position: relative;
+  bottom: 0;
+}
+
+/* Footer Links */
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #ffd700; /* Gold hover effect */
+}
+
+/* Responsive Footer */
+@media (max-width: 768px) {
+  .footer {
+      padding: 10px 0;
   }
-  
-  /* Footer Content */
-  .footer-container {
-    max-width: 1200px;
-    margin: auto;
-  }
-  
-  /* Footer Links */
+
   .footer-links {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-bottom: 10px;
-  }
-  
-  .footer-links a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s ease;
-  }
-  
-  .footer-links a:hover {
-    color: #f1f1f1;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .footer-links {
       flex-direction: column;
-      gap: 10px;
-    }
+      gap: 8px;
   }
-  
+}

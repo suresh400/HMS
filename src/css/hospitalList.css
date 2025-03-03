@@ -1,118 +1,121 @@
-/* Full-width container */
+/* Hospital List Container */
 .hospital-list {
-    width: 100%;
-    /* max-width: 1200px; Prevents extra-wide layout */
-    margin: 20px auto;
-    padding: 20px;
-    padding-top: 80px; /* Avoids overlap with navbar */
-    background: #f9f9f9;
-    text-align: center;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Title */
-  .hospital-list h2 {
-    color: #007bff;
-    font-size: 24px;
-    margin-bottom: 15px;
-  }
-  
-  /* Full-width Dropdown */
-  .hospital-list select {
-    width: 100%;
-    max-width: 600px; /* Keeps it centered */
-    padding: 12px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    background: white;
-    margin-bottom: 20px;
-    box-sizing: border-box;
-  }
-  
-  /* Hospital List */
-  .hospital-list ul {
-    list-style-type: none;
-    padding: 0;
-    width: 100%;
-    margin: 0 auto;
-  }
-  
-  /* Hospital Item (Card) */
-  .hospital-list li {
-    background: white;
+  width: 100%;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  padding-top: 60px; /* Avoids overlap with navbar */
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  padding-top: 100px;
+}
+
+/* Title */
+.hospital-list h2 {
+  color: #007bff;
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+/* Dropdown */
+.hospital-list select {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background: white;
+  margin-bottom: 20px;
+}
+
+/* Hospital List */
+.hospital-list ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Hospital Item */
+.hospital-list li {
+  background: white;
+  padding: 15px;
+  margin: 10px auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  transition: transform 0.2s ease;
+  width: 90%;
+}
+
+/* Hover Effect */
+.hospital-list li:hover {
+  transform: scale(1.02);
+}
+
+/* Hospital Name Link */
+.hospital-list li a {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+  font-size: 20px;
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* Specialities & Rating */
+.hospital-list p {
+  font-size: 16px;
+  color: #555;
+  margin: 5px 0;
+}
+
+/* Delete Button */
+.hospital-list button {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.hospital-list button:hover {
+  background: #c82333;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hospital-list {
+    width: 95%;
     padding: 15px;
-    margin-bottom: 10px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    text-align: left;
-    width: 100%;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-    transition: transform 0.2s ease;
   }
-  
-  /* Hover effect on hospital card */
-  .hospital-list li:hover {
-    transform: scale(1.02);
+
+  .hospital-list h2 {
+    font-size: 24px;
   }
-  
-  /* Hospital Name Link */
-  .hospital-list li a {
-    text-decoration: none;
-    color: #007bff;
-    font-weight: bold;
-    font-size: 18px;
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  /* Specialities & Rating */
-  .hospital-list p {
+
+  .hospital-list select {
     font-size: 14px;
-    color: #555;
-    margin: 5px 0;
+    width: 90%;
   }
-  
-  /* Delete Button */
+
+  .hospital-list li {
+    flex-direction: column;
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+  }
+
   .hospital-list button {
-    background: #dc3545;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s ease;
+    width: 100px;
+    margin-top: 10px;
   }
-  
-  .hospital-list button:hover {
-    background: #c82333;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 100%) {
-    .hospital-list {
-      width: 100%;
-      padding: 10px;
-    }
-  
-    .hospital-list h2 {
-      font-size: 22px;
-    }
-  
-    .hospital-list select {
-      font-size: 14px;
-      max-width: 100%;
-    }
-  
-    .hospital-list li {
-      padding: 12px;
-    }
-  
-    .hospital-list button {
-      padding: 6px 10px;
-    }
-  }
-  
+}

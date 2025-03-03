@@ -4,7 +4,7 @@ import '../css/editHospital.css';
 import axios from "axios";
 
 const EditHospitalPage = () => {
-  const { id } = useParams(); // Get hospital ID from URL
+  const { id } = useParams();
   const navigate = useNavigate();
   const [hospital, setHospital] = useState({
     name: "",
@@ -24,7 +24,9 @@ const EditHospitalPage = () => {
     const fetchHospitalDetails = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`http://localhost:5000/api/v1/hospitals/${id}`);
+        const response = await axios.get(`http://localhost:5000/api/v1/hospitals/${id}`, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }, // ✅ Added token
+        });
 
         if (!response.data || response.data.error) {
           setError("Hospital not found.");
@@ -44,12 +46,20 @@ const EditHospitalPage = () => {
   }, [id]);
 
   const handleChange = (e) => {
-    setHospital({ ...hospital, [e.target.name]: e.target.value });
+    setHospital((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
   };
 
+  // ✅ Handle adding specialities (Avoid Duplicates)
   const handleAddSpeciality = () => {
-    if (newSpeciality.trim() && !hospital.specialities.includes(newSpeciality)) {
-      setHospital({ ...hospital, specialities: [...hospital.specialities, newSpeciality] });
+    const formattedSpeciality = newSpeciality.trim().toLowerCase();
+    if (formattedSpeciality && !hospital.specialities.includes(formattedSpeciality)) {
+      setHospital((prevState) => ({
+        ...prevState,
+        specialities: [...prevState.specialities, formattedSpeciality],
+      }));
       setNewSpeciality("");
     }
   };
@@ -58,9 +68,15 @@ const EditHospitalPage = () => {
     e.preventDefault();
 
     try {
-      await axios.put(`http://localhost:5000/api/v1/hospitals/update?id=${id}`, hospital);
+      await axios.put(
+        `http://localhost:5000/api/v1/hospitals/update?id=${id}`,
+        hospital,
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }, // ✅ Token added
+        }
+      );
       alert("Hospital updated successfully!");
-      navigate(`/hospital/${id}`); // Redirect to hospital details page
+      navigate(-1); // ✅ Go back dynamically
     } catch (error) {
       console.error("Error updating hospital:", error);
       alert("Failed to update hospital.");
@@ -85,7 +101,12 @@ const EditHospitalPage = () => {
 
         <label>Specialities:</label>
         <div className="specialities-input">
-          <input type="text" value={newSpeciality} onChange={(e) => setNewSpeciality(e.target.value)} placeholder="Enter a speciality" />
+          <input
+            type="text"
+            value={newSpeciality}
+            onChange={(e) => setNewSpeciality(e.target.value)}
+            placeholder="Enter a speciality"
+          />
           <button type="button" onClick={handleAddSpeciality}>Add</button>
         </div>
         <div className="specialities-list">
