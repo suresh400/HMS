@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, useRef } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Slider from "react-slick";
@@ -6,7 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../css/home.css";
 import { AuthContext } from "../context/AuthContext";
-import { API_BASE_URL } from "../config";
+
 const Home = () => {
   const { user } = useContext(AuthContext);
   const [username, setUsername] = useState("");
@@ -16,9 +16,6 @@ const Home = () => {
   const [searchedCity, setSearchedCity] = useState("");
   const [error, setError] = useState("");
 
-  // ✅ Reference for scrolling
-  const hospitalSectionRef = useRef(null);
-
   useEffect(() => {
     if (user) {
       setUsername(user.name);
@@ -26,7 +23,6 @@ const Home = () => {
     }
   }, [user]);
 
-  // ✅ Fetch All Hospitals
   const fetchAllHospitals = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -35,7 +31,7 @@ const Home = () => {
         return;
       }
 
-      const response = await axios.get(`${ API_BASE_URL }/api/v1/hospitals`, {
+      const response = await axios.get("http://localhost:5000/api/v1/hospitals", {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -51,7 +47,6 @@ const Home = () => {
     }
   };
 
-  // ✅ Fetch Hospitals by City
   const fetchHospitalsByCity = async () => {
     if (!city.trim()) {
       setError("Please enter a city name.");
@@ -66,7 +61,7 @@ const Home = () => {
         return;
       }
 
-      const response = await axios.get(`${ API_BASE_URL }/api/v1/hospitals?city=${city}`, {
+      const response = await axios.get(`http://localhost:5000/api/v1/hospitals?city=${city}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -74,11 +69,6 @@ const Home = () => {
         setHospitals(response.data);
         setSearchedCity(city);
         setError("");
-
-        // ✅ Scroll to hospitals section
-        setTimeout(() => {
-          hospitalSectionRef.current?.scrollIntoView({ behavior: "smooth" });
-        }, 200);
       } else {
         setError(`No hospitals found in ${city}.`);
       }
@@ -88,7 +78,6 @@ const Home = () => {
     }
   };
 
-  // ✅ Handle City Input Change
   const handleCityChange = (e) => {
     setCity(e.target.value);
     if (!e.target.value) {
@@ -97,7 +86,6 @@ const Home = () => {
     }
   };
 
-  // ✅ Slider Settings
   const sliderSettings = {
     dots: true,
     infinite: true,
@@ -108,13 +96,12 @@ const Home = () => {
     autoplaySpeed: 3000,
   };
 
-  // ✅ Show Welcome Screen for Non-Logged-In Users
   if (!user) {
     return (
       <div className="welcome-container">
         <img src="../src/assets/home.jpg" alt="Hospital Background" className="welcome-image" />
         <div className="welcome-overlay">
-          <h1>Welcome to HMS</h1>
+          <h1>Welcome to Hospital HMS</h1>
           <p>Let's find the best hospitals in your nearest city.</p>
           <p>
             Please <Link to="/login">Login</Link> or <Link to="/register">Register</Link> to continue.
@@ -155,7 +142,7 @@ const Home = () => {
       <div className="about-us">
         <h2>About Us</h2>
         <p>
-          Welcome to the **Hospital Management System (HMS)** – a modern solution designed to streamline and enhance healthcare services.
+          Welcome to the **Hospital Management System (HMS)** – a modern solution designed to streamline and enhance healthcare services. 
           Our system ensures efficient hospital administration, improving patient care, appointment scheduling, and hospital resource management.
         </p>
 
@@ -180,7 +167,7 @@ const Home = () => {
 
       {/* Hospital List (Only After Search) */}
       {searchedCity && (
-        <div ref={hospitalSectionRef} className="hospital-list">
+        <div className="hospital-list">
           <h3>Hospitals in {searchedCity}</h3>
           {hospitals.length > 0 ? (
             <ul className="hospital-cards">

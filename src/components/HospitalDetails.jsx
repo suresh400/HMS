@@ -3,7 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import "../css/hospitalDetails.css"; // Ensure CSS is correctly imported
-import { API_BASE_URL } from "../config";
+
 const HospitalDetails = () => {
   const { id } = useParams(); // Get hospital ID from URL
   const { user } = useContext(AuthContext); // Get logged-in user details
@@ -18,7 +18,7 @@ const HospitalDetails = () => {
   const fetchHospitalDetails = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`${ API_BASE_URL }/api/v1/hospitals/${id}`);
+      const response = await axios.get(`http://localhost:5000/api/v1/hospitals/${id}`);
 
       if (!response.data || response.data.error) {
         setError("Hospital not found.");

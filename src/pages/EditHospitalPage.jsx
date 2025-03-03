@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import '../css/editHospital.css';
 import axios from "axios";
-import { API_BASE_URL } from "../config";
+
 const EditHospitalPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ const EditHospitalPage = () => {
     const fetchHospitalDetails = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`${ API_BASE_URL }/api/v1/hospitals/${id}`, {
+        const response = await axios.get(`http://localhost:5000/api/v1/hospitals/${id}`, {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }, // ✅ Added token
         });
 
@@ -69,7 +69,7 @@ const EditHospitalPage = () => {
 
     try {
       await axios.put(
-        `${ API_BASE_URL }/api/v1/hospitals/update?id=${id}`,
+        `http://localhost:5000/api/v1/hospitals/update?id=${id}`,
         hospital,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }, // ✅ Token added

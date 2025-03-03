@@ -1,18 +1,10 @@
-import { Link, useNavigate } from "react-router-dom"; // ✅ Import useNavigate
+import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import "../css/navbar.css";
-
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
-  const navigate = useNavigate(); // ✅ Initialize navigate function
   const isAdmin = user?.role === "admin"; // Check if user is an admin
-
-  // ✅ Updated Logout Function (Redirects to Home Page)
-  const handleLogout = () => {
-    logout(); // Clear user session
-    navigate("/"); // ✅ Redirect to non-logged-in home page
-  };
 
   return (
     <nav className="navbar">
@@ -27,7 +19,7 @@ const Navbar = () => {
 
       {/* Auth Buttons */}
       {user ? (
-        <button onClick={handleLogout} className="logout-btn">Logout</button>
+        <button onClick={logout} className="logout-btn">Logout</button>
       ) : (
         <>
           <Link to="/login">Login</Link>
