@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
+import { API_BASE_URL } from "../config";
 
 const EditHospital = () => {
   const { id } = useParams();
@@ -21,7 +22,7 @@ const EditHospital = () => {
 
     const fetchHospital = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/v1/hospitals/${id}`);
+        const res = await axios.get(`${ API_BASE_URL }/api/v1/hospitals/${id}`);
         setHospital(res.data);
       } catch (err) {
         setError("Failed to load hospital.");
@@ -37,7 +38,7 @@ const EditHospital = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:5000/api/v1/hospitals/update?id=${id}`, hospital, {
+      await axios.put(`${ API_BASE_URL }/api/v1/hospitals/update?id=${id}`, hospital, {
         headers: { Authorization: localStorage.getItem("token") }, // ✅ Send token
       });
       alert("Updated successfully!");

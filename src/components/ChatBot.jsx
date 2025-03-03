@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { API_BASE_URL } from "../config";
 
 const ChatBot = () => {
   const [question, setQuestion] = useState("");
@@ -11,7 +12,7 @@ const ChatBot = () => {
     try {
       const token = localStorage.getItem("token"); // Ensure authentication
       const response = await axios.post(
-        "http://localhost:5000/api/v1/rag/ask",
+        `${ API_BASE_URL }/api/v1/rag/ask`,
         { question },
         { headers: { Authorization: `Bearer ${token}` } }
       );

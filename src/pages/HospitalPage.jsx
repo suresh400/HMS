@@ -4,7 +4,7 @@ import axios from "axios";
 import "../css/hospitalPage.css";
 import { AuthContext } from "../context/AuthContext";
 import Chatbot from "../components/ChatBot";
-
+import { API_BASE_URL } from "../config";
 const HospitalPage = () => {
   const { id } = useParams();
   const { user } = useContext(AuthContext); // ✅ Get user from AuthContext
@@ -18,7 +18,7 @@ const HospitalPage = () => {
         setLoading(true);
         setError(null); // ✅ Reset error state before fetching
 
-        const response = await axios.get(`http://localhost:5000/api/v1/hospitals/${id}`, {
+        const response = await axios.get(`${ API_BASE_URL }/api/v1/hospitals/${id}`, {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }, // ✅ Authorization added
         });
 

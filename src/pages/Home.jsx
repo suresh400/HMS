@@ -6,7 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../css/home.css";
 import { AuthContext } from "../context/AuthContext";
-
+import { API_BASE_URL } from "../config";
 const Home = () => {
   const { user } = useContext(AuthContext);
   const [username, setUsername] = useState("");
@@ -35,7 +35,7 @@ const Home = () => {
         return;
       }
 
-      const response = await axios.get("http://localhost:5000/api/v1/hospitals", {
+      const response = await axios.get(`${ API_BASE_URL }/api/v1/hospitals`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -66,7 +66,7 @@ const Home = () => {
         return;
       }
 
-      const response = await axios.get(`http://localhost:5000/api/v1/hospitals?city=${city}`, {
+      const response = await axios.get(`${ API_BASE_URL }/api/v1/hospitals?city=${city}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
