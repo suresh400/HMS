@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../css/addHospitalDetails.css";
-
+import { API_BASE_URL } from "../config";
 const AddHospitalDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ const AddHospitalDetails = () => {
   const fetchHospitalDetails = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/v1/hospitals/${id}`,
+        `${API_BASE_URL}/api/v1/hospitals/${id}`,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }, // ✅ Token added
         }
@@ -60,7 +60,7 @@ const AddHospitalDetails = () => {
     e.preventDefault();
     try {
       await axios.post(
-        `http://localhost:5000/api/v1/hospitals/details?id=${id}`,
+        `${API_BASE_URL}/api/v1/hospitals/details?id=${id}`,
         details,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }, // ✅ Token added
