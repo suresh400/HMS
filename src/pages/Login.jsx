@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import "../css/auth.css";
+import loginImage from "../assets/login.jpg"; // ✅ Import the image correctly
 
 const Login = () => {
   const { login } = useContext(AuthContext);
@@ -41,17 +42,16 @@ const Login = () => {
 
   return (
     <div className="auth-container">
-      <img src="./src/assets/login.jpg" alt="login" />
+      <img src={loginImage} alt="Login" className="login-image" /> {/* ✅ Use imported image */}
       <div className="form">
-      <h2>Login</h2>
-      {error && <p className="error-message">{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
-        <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
-        <button type="submit">Login</button>
-      </form>
-      {/* <p>If </p> */}
-    </div>
+        <h2>Login</h2>
+        {error && <p className="error-message">{error}</p>}
+        <form onSubmit={handleSubmit}>
+          <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
+          <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
+          <button type="submit">Login</button>
+        </form>
+      </div>
     </div>
   );
 };

@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import registerImage from "../assets/login.jpg";
 import "../css/auth.css";
-import { API_BASE_URL } from "../config";
+// import { API_BASE_URL } from "../config";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ const Register = () => {
     setError(""); // ✅ Reset error before new request
 
     try {
-      await axios.post(`${API_BASE_URL}/api/v1/auth/register`, formData);
+      await axios.post(`https://hmsbackend-it6f.onrender.com/api/v1/auth/register`, formData);
       alert("Registration successful!");
       navigate("/login");
     } catch (error) {
@@ -28,7 +29,7 @@ const Register = () => {
 
   return (
     <div className="auth-container">
-      <img src="./src/assets/login.jpg" alt="register" />
+      <img src={registerImage} alt="register" />
       <div className="form">
       <h2>Register</h2>
       {error && <p className="error-message">{error}</p>} {/* ✅ Show error message */}

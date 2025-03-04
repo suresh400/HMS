@@ -5,6 +5,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../css/home.css";
+import homeImage from "../assets/home.jpg";
 import { AuthContext } from "../context/AuthContext";
 
 const Home = () => {
@@ -99,7 +100,7 @@ const Home = () => {
   if (!user) {
     return (
       <div className="welcome-container">
-        <img src="../src/assets/home.jpg" alt="Hospital Background" className="welcome-image" />
+        <img src={homeImage} alt="Hospital Background" className="welcome-image" />
         <div className="welcome-overlay">
           <h1>Welcome to Hospital HMS</h1>
           <p>Let's find the best hospitals in your nearest city.</p>

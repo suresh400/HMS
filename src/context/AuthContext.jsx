@@ -1,20 +1,21 @@
 import { createContext, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // ✅ Import useNavigate only inside a component
+import { useNavigate } from "react-router-dom";
 
 // Create Auth Context
 export const AuthContext = createContext();
 
 // AuthProvider Component
-export const AuthProvider = ({ children }) => {
+const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  
+  const navigate = useNavigate(); // ✅ Define navigate inside the component
+
   // ✅ Fetch User Data when App Loads
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const storedUser = localStorage.getItem("user");
 
     if (token && storedUser) {
-      setUser(storedUser);
+      setUser(JSON.parse(storedUser));
     }
   }, []);
 
@@ -24,15 +25,15 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem("user", JSON.stringify(userData));
     setUser(userData);
   };
+
+  // ✅ Logout Function
   const logout = () => {
     localStorage.removeItem("token");
-    localStorage.removeItem("user"); // ✅ Clear stored user data
+    localStorage.removeItem("user");
     setUser(null);
 
     // ✅ Redirect after logout
-    setTimeout(() => {
-      navigate("/"); // ✅ Redirect to home page
-    }, 0);
+    navigate("/");
   };
 
   return (
