@@ -9,7 +9,7 @@ import EditHospitalPage from "./pages/EditHospitalPage";
 import AddHospitalDetails from "./pages/AddHospitalDetails";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import { AuthProvider } from "./context/AuthContext";
+import AuthProvider from "./context/AuthContext";
 import Contact from "./pages/Contact";
 
 const App = () => {
