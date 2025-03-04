@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import "../css/hospitalList.css";
 import { AuthContext } from "../context/AuthContext";
-
+import { API_BASE_URL } from "../config";
 const HospitalList = () => {
   const { user } = useContext(AuthContext); // Get user details
   const isAdmin = user?.role === "admin"; // Check if user is an admin
@@ -28,7 +28,7 @@ const HospitalList = () => {
         return;
       }
 
-      let url = "http://localhost:5000/api/v1/hospitals";
+      let url = `${API_BASE_URL}/api/v1/hospitals`;
       if (selectedCity) url += `?city=${selectedCity}`;
 
       const response = await axios.get(url, {
@@ -66,7 +66,7 @@ const HospitalList = () => {
         return;
       }
 
-      await axios.delete(`http://localhost:5000/api/v1/hospitals/delete?id=${id}`, {
+      await axios.delete(`${API_BASE_URL}/api/v1/hospitals/delete?id=${id}`, {
         headers: { Authorization: `Bearer ${token}` }, // ✅ Send Authorization header
       });
 
