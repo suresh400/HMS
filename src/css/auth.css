@@ -5,7 +5,7 @@
   justify-content: center;
   width: 100%;
   height: 100vh; /* Full viewport height */
-  /* background: linear-gradient(135deg, #e3f2fd, #bbdefb); Light blue gradient */
+  background-color: white; 
   padding: 20px;
 }
 
