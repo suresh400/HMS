@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import registerImage from "../assets/login.jpg";
 import "../css/auth.css";
-// import { API_BASE_URL } from "../config";
+import { API_BASE_URL } from "../config";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ const Register = () => {
     setError(""); // ✅ Reset error before new request
 
     try {
-      await axios.post(`https://hmsbackend-it6f.onrender.com/api/v1/auth/register`, formData);
+      await axios.post(`${API_BASE_URL}/api/v1/auth/register`, formData);
       alert("Registration successful!");
       navigate("/login");
     } catch (error) {
