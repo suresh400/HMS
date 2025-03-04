@@ -4,7 +4,7 @@ import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import "../css/auth.css";
 import loginImage from "../assets/login.jpg"; // ✅ Import the image correctly
-
+import { API_BASE_URL } from "../config";
 const Login = () => {
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/v1/auth/login",
+        `${API_BASE_URL}/api/v1/auth/login`,
         formData,
         { headers: { "Content-Type": "application/json" } } // ✅ Ensure correct headers
       );
