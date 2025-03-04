@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/addHospital.css";
 import axios from "axios";
-
+import { API_BASE_URL } from "../config";
 const AddHospital = () => {
   const navigate = useNavigate();
   const [hospital, setHospital] = useState({
@@ -54,7 +54,7 @@ const AddHospital = () => {
       }
   
       const response = await axios.post(
-        "http://localhost:5000/api/v1/hospitals/create",
+        `${API_BASE_URL}/api/v1/hospitals/create`,
         hospital,
         {
           headers: {
